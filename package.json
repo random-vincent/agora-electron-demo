@@ -1,0 +1,49 @@
+{
+  "name": "electron-vincent-demo",
+  "version": "1.0.0",
+  "main": "main.js",
+  "author": "Vincent.An <anzhaowei@agora.io>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "electron .",
+    "compile": "echo '1'",
+    "write-config": "node ./scripts/writeAppId.js",
+    "dist": "npm run compile && electron-builder",
+    "dist:dir": "npm run dist --dir -c.compression=store -c.mac.identity=null",
+    "dist:zip": "npm run compile && electron-builder --dir -c.compression=store -c.mac.identity=null",
+    "dist:win32": "npm run compile && electron-builder --win --ia32",
+    "dist:win64": "npm run compile && electron-builder --win --x64"
+  },
+  "agora_electron": {
+    "electron_version": "11.0.0",
+    "platform": "darwin",
+    "prebuilt": true
+  },
+  "devDependencies": {
+    "electron": "11.0.0",
+    "electron-builder": "23.6.0"
+  },
+  "dependencies": {
+    "agora-electron-sdk": "3.6.1-rc.11-build.1028"
+  },
+  "build": {
+    "asar": false,
+    "appId": "io.agora.wayang.electron",
+    "win": {
+      "target": [
+        {
+          "target": "zip"
+        }
+      ]
+    },
+    "mac": {
+      "entitlements": "entitlements/entitlements.mac.plist",
+      "extendInfo": {
+        "NSCameraUsageDescription": "Request camera usage",
+        "NSMicrophoneUsageDescription": "Request mic usage"
+      }
+    },
+    "npmRebuild": false,
+    "publish": null
+  }
+}
