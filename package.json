@@ -15,12 +15,12 @@
     "dist:win64": "npm run compile && electron-builder --win --x64"
   },
   "agora_electron": {
-    "electron_version": "11.0.0",
+    "electron_version": "12.0.0",
     "platform": "darwin",
     "prebuilt": true
   },
   "devDependencies": {
-    "electron": "11.0.0",
+    "electron": "12.0.0",
     "electron-builder": "23.6.0"
   },
   "dependencies": {
@@ -28,7 +28,12 @@
   },
   "build": {
     "asar": false,
-    "appId": "io.agora.wayang.electron",
+    "buildDependenciesFromSource": true,
+    "productName": "Agora-Electron-API-Example-vincent-2",
+    "appId": "io.agora.wayang.electron-vincent-2",
+    "files": [
+      "!*.log"
+    ],
     "win": {
       "target": [
         {
@@ -36,14 +41,45 @@
         }
       ]
     },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category": "Development"
+    },
     "mac": {
-      "entitlements": "entitlements/entitlements.mac.plist",
+      "target": [
+        "dir"
+      ],
+      "entitlements": "assets/entitlements.mac.plist",
+      "entitlementsInherit": "asstes/entitlements.mac.plist",
       "extendInfo": {
         "NSCameraUsageDescription": "Request camera usage",
         "NSMicrophoneUsageDescription": "Request mic usage"
-      }
+      },
+      "gatekeeperAssess": false,
+      "type": "distribution",
+      "hardenedRuntime": true
     },
-    "npmRebuild": false,
-    "publish": null
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "directories": {
+      "buildResources": "assets"
+    },
+    "extraResources": [
+      "./extraResources/**"
+    ]
   }
 }
